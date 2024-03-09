@@ -23,4 +23,4 @@ print(df.columns)
 # 处理缺失值
 df = df.dropna(subset=['Solar Longitude', 'Solar Latitude', 'Spacecraft Longitude', 'Spacecraft Latitude', 'Altitude'])
 
-df.to_csv('data/processed_data.csv', index=False)
+df.to_csv('rawData/processed_data.csv', index=False)
