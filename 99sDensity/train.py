@@ -34,25 +34,26 @@ class LinearRegression(nn.Module):
 
 model = LinearRegression()
 
-# 损失函数和优化器
-criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.005)
+if __name__ == "__main__":
+    criterion = nn.MSELoss()
+    optimizer = optim.Adam(model.parameters(), lr=0.005)
 
-# 训练模型
-for epoch in range(100):
-    optimizer.zero_grad()
-    outputs = model(torch.Tensor(X_train))
-    loss = criterion(outputs, torch.Tensor(y_train).unsqueeze(1))
-    # 梯度剪裁
-    nn.utils.clip_grad_value_(model.parameters(), clip_value=1.0)
-    loss.backward()
-    optimizer.step()
-    if (epoch + 1) % 10 == 0:
-        print(f"Epoch [{epoch + 1}/100] --- Loss: {loss.item():.4f}")
+    for epoch in range(100):
+        optimizer.zero_grad()
+        outputs = model(torch.Tensor(X_train))
+        loss = criterion(outputs, torch.Tensor(y_train).unsqueeze(1))
+        # 梯度剪裁
+        nn.utils.clip_grad_value_(model.parameters(), clip_value=1.0)
+        loss.backward()
+        optimizer.step()
+        if (epoch + 1) % 10 == 0:
+            print(f"Epoch [{epoch + 1}/100] --- Loss: {loss.item():.4f}")
 
-X_test = test_data.drop(columns=['99-SEC DENSITY']).values
-y_test = test_data['99-SEC DENSITY'].values
-with torch.no_grad():
-    test_outputs = model(torch.Tensor(X_test))
-    test_loss = criterion(test_outputs, torch.Tensor(y_test).unsqueeze(1))
-    print(f'Final Loss: {test_loss.item():.4f}')
+    X_test = test_data.drop(columns=['99-SEC DENSITY']).values
+    y_test = test_data['99-SEC DENSITY'].values
+    with torch.no_grad():
+        test_outputs = model(torch.Tensor(X_test))
+        test_loss = criterion(test_outputs, torch.Tensor(y_test).unsqueeze(1))
+        print(f'Final Loss: {test_loss.item():.4f}')
+
+    torch.save(model.state_dict(), r'./model/99sDensity_model.pth')

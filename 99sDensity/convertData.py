@@ -1,3 +1,4 @@
+# 不适用,使用convertData2
 import csv
 
 tab_file_path = r'./rawData/2014/10/mvn_acc_l3_pro-acc-p00049_20141007_v02_r01.tab.txt'
