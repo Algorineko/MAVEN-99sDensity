@@ -1,7 +1,7 @@
-from train import LinearRegression
+from train import Model
 import torch
 
-model = LinearRegression()
+model = Model()
 
 # 加载保存的模型权重
 model.load_state_dict(torch.load(r'model/99sDensity_model.pth'))
