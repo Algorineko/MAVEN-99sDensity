@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-# data = pd.read_csv(r'./testData/testdata.csv')
 data = pd.read_csv(r'./testData/testdata.csv')
 
 train_data = data.sample(frac=0.8, random_state=923)
@@ -24,15 +23,20 @@ y_train = torch.Tensor(train_data['99-SEC DENSITY'].values)
 # print(X_train.max(), X_train.min())
 # print(y_train.max(), y_train.min())
 
-class LinearRegression(nn.Module):
+class Model(nn.Module):
     def __init__(self):
-        super(LinearRegression, self).__init__()
-        self.fc = nn.Linear(X_train.shape[1], 1)
+        super(Model, self).__init__()
+        self.fc1 = nn.Linear(X_train.shape[1], 64)
+        self.relu = nn.ReLU()
+        self.fc2 = nn.Linear(64, 1)
 
     def forward(self, x):
-        return self.fc(x)
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        return x
 
-model = LinearRegression()
+model = Model()
 
 if __name__ == "__main__":
     criterion = nn.MSELoss()
