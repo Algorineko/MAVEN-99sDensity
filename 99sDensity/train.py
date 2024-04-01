@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-data = pd.read_csv(r'./testData/testdata.csv')
+data = pd.read_csv(r'testData/testData.csv')
 
 train_data = data.sample(frac=0.8, random_state=923)
 test_data = data.drop(train_data.index)

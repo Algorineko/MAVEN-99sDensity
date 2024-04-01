@@ -7,7 +7,7 @@ model = Model()
 model.load_state_dict(torch.load(r'model/99sDensity_model.pth'))
 model.eval()  # 设置模型为评估模式
 
-txt_file_path = r'./testData/validationData.txt'
+txt_file_path = r'validationSet/validationData.txt'
 data=[]
 with open(txt_file_path, 'r') as file:
     for line in file:
